@@ -1,6 +1,7 @@
 from typing import List
 
 
+# O(N log N) solution
 class Sort:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         numMap = {}
@@ -10,6 +11,7 @@ class Sort:
         topF = dict(sorted(numMap.items(), key=lambda item: item[1], reverse=True))
         return list(topF.keys())[:k]
 
+# O(N) solution
 class Bucket:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         numMap = {}

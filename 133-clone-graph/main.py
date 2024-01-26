@@ -13,16 +13,15 @@ from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         nodes = {}
+
         def dfs(node):
-            if node.val in nodes:
-                return nodes[node.val]
+            if node.val in nodes: return nodes[node.val]
             copy = Node(node.val)
             nodes[node.val] = copy
             for neighbor in node.neighbors:
                 copy.neighbors.append(dfs(neighbor))
             return copy
         return dfs(node) if node else None
-
 
 
 example_1 = Node(val=1)
@@ -53,4 +52,3 @@ while q:
     for neighbor in n.neighbors:
         print(neighbor.val)
         q.append(neighbor)
-

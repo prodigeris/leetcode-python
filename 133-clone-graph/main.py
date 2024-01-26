@@ -13,30 +13,15 @@ from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         nodes = {}
-        q = collections.deque()
-        q.append(node)
-        while q:
-            n = q.popleft()
-            if not n:
-                break
-            nodes[n.val] = Node(n.val)
-            for neighbor in n.neighbors:
-                if neighbor.val not in nodes:
-                    q.append(neighbor)
-        q.append(node)
-
-        visited = []
-        while q:
-            n = q.popleft()
-            if not n or n.val in visited:
-                continue
-            for neighbor in n.neighbors:
-                nodes[n.val].neighbors.append(nodes[neighbor.val])
-                q.append(neighbor)
-            visited.append(n.val)
-        if not node:
-            return None
-        return nodes[node.val]
+        def dfs(node):
+            if node.val in nodes:
+                return nodes[node.val]
+            copy = Node(node.val)
+            nodes[node.val] = copy
+            for neighbor in node.neighbors:
+                copy.neighbors.append(dfs(neighbor))
+            return copy
+        return dfs(node) if node else None
 
 
 
